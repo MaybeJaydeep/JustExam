@@ -1,8 +1,10 @@
 <?php 
 session_start();
-if(isset($_SESSION['examineeSession']['examineenakalogin']) == true) header("location:home.php");
-
- ?>
+if(isset($_SESSION['student']['is_logged_in']) && $_SESSION['student']['is_logged_in'] === true) {
+    header("location:home.php");
+    exit;
+}
+?>
 
 <?php 
 
