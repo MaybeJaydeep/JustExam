@@ -1,10 +1,11 @@
 <?php 
 session_start();
 
-if(!isset($_SESSION['admin']['adminnakalogin']) == true) header("location:index.php");
-
-
- ?>
+if(!isset($_SESSION['admin']['is_logged_in']) || $_SESSION['admin']['is_logged_in'] !== true) {
+    header("location:index.php");
+    exit;
+}
+?>
 <?php include("../../conn.php"); ?>
 <!--  HEADER -->
 <?php include("includes/header.php"); ?>      

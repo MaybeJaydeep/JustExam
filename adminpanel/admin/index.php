@@ -1,8 +1,10 @@
 <?php 
 session_start();
-if(isset($_SESSION['admin']['adminnakalogin']) == true) header("location:home.php");
-
- ?>
+if(isset($_SESSION['admin']['is_logged_in']) && $_SESSION['admin']['is_logged_in'] === true) {
+    header("location:home.php");
+    exit;
+}
+?>
 
 <?php 
 
