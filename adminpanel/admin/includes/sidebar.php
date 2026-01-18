@@ -106,10 +106,25 @@
 
                                 <li class="app-sidebar__heading">REPORTS</li>
                                 <li>
-                                    <a href="home.php?page=examinee-result">
-                                        <i class="metismenu-icon pe-7s-cup">
-                                        </i>Examinee Result
+                                    <a href="#">
+                                         <i class="metismenu-icon pe-7s-graph1"></i>
+                                         Reports
+                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                                     </a>
+                                    <ul>
+                                        <li>
+                                            <a href="home.php?page=reports">
+                                                <i class="metismenu-icon pe-7s-chart"></i>
+                                                Advanced Reports
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="home.php?page=examinee-result">
+                                                <i class="metismenu-icon pe-7s-cup"></i>
+                                                Examinee Result
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                               
 

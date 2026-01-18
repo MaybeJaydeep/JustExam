@@ -39,7 +39,8 @@ if (!checkSessionTimeout()) {
        'manage-examinee',
        'ranking-exam',
        'feedbacks',
-       'examinee-result'
+       'examinee-result',
+       'reports'
    ];
 
    if($page != '' && in_array($page, $allowedPages))
@@ -71,6 +72,10 @@ if (!checkSessionTimeout()) {
      else if($page == "examinee-result")
      {
       include("pages/examinee-result.php");
+     }
+     else if($page == "reports")
+     {
+      include("pages/reports.php");
      }
    }
    // Else  homepage  display
