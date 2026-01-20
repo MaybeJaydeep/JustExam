@@ -52,6 +52,12 @@
 							Login
 						</button>
 					</div>
+					
+					<div class="text-center p-t-20">
+						<a class="txt2" href="pages/forgot-password.php" style="color: #666; text-decoration: none;">
+							Forgot Password?
+						</a>
+					</div>
 				</form>
 			</div>
 		</div>
