@@ -16,7 +16,7 @@ if (!checkSessionTimeout()) {
     exit;
 }
 ?>
-<?php include("../../conn.php"); ?>
+<?php require_once("../../config.php"); require_once("../../security.php"); ?>
 <!--  HEADER -->
 <?php include("includes/header.php"); ?>      
 
