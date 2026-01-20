@@ -66,12 +66,5 @@ try {
     sendJSON(['res' => 'error', 'msg' => 'An error occurred. Please try again.'], 500);
 }
 
-
-
-
- echo json_encode($res);
- ?>
-
-
 echo json_encode($res);
 ?>
