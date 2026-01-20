@@ -1,5 +1,6 @@
 <?php 
-  include("conn.php");
+  require_once("config.php");
+  require_once("security.php");
   include("query/selectData.php");
  ?>
 
@@ -16,12 +17,18 @@
     <!-- MAIN CSS  -->
     <link href="./main.css" rel="stylesheet">
     <link href="css/sweetalert.css" rel="stylesheet">
+    <link href="css/mobile-responsive.css" rel="stylesheet">
 </head>
 <body id="body">
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow">
+            <!-- Mobile Menu Toggle -->
+            <button type="button" class="mobile-menu-toggle d-md-none" onclick="toggleMobileMenu()">
+                <i class="pe-7s-menu"></i>
+            </button>
+            
             <div class="app-header__logo">
-               <a class="btn btn-primary" href="index.php" role="button">Home</a>
+               <a class="btn btn-primary" href="index.php" role="button">🎓 JustExam</a>
                 <div class="header__pane ml-auto">
                     <div>
                         <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">

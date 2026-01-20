@@ -106,6 +106,14 @@
                         Add Feedbacks                        
                     </a>
                 </li>
+
+                <li class="app-sidebar__heading">ACCOUNT</li>
+                <li>
+                    <a href="home.php?page=student-profile">
+                        <i class="metismenu-icon pe-7s-user"></i>
+                        My Profile                        
+                    </a>
+                </li>
                 
             </ul>
         </div>

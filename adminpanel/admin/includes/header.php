@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en">
 <?php 
-  include("../../conn.php");
+  require_once("../../config.php");
+  require_once("../../security.php");
   include("query/countData.php");
  ?>
 
@@ -18,6 +19,7 @@
     <link href="./main.css" rel="stylesheet">
     <link href="css/sweetalert.css" rel="stylesheet">
     <link href="css/facebox.css" rel="stylesheet">
+    <link href="../../css/mobile-responsive.css" rel="stylesheet">
     
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
