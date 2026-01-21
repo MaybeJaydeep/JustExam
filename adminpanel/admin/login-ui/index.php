@@ -16,11 +16,6 @@
 	<link rel="stylesheet" type="text/css" href="login-ui/css/main.css">
 </head>
 <body>
-	<?php 
-	session_start();
-	require_once("../../../config.php");
-	require_once("../../../security.php");
-	?>
 	
 	<div class="limiter">
 		<div class="container-login100">
@@ -32,8 +27,6 @@
 				</div>
 
 				<form method="post" id="adminLoginFrm" class="login100-form validate-form">
-					<input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
-					
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
 						<span class="label-input100">Username</span>
 						<input class="input100" type="text" name="username" placeholder="Enter username">
@@ -51,12 +44,6 @@
 						<button type="submit" class="login100-form-btn">
 							Login
 						</button>
-					</div>
-					
-					<div class="text-center p-t-20">
-						<a class="txt2" href="../../../pages/forgot-password.php" style="color: #666; text-decoration: none;">
-							Forgot Password?
-						</a>
 					</div>
 				</form>
 			</div>

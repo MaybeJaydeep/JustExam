@@ -1,22 +1,11 @@
 <?php 
 session_start();
-require_once("../../config.php");
-require_once("../../security.php");
 
-// Check if admin is logged in
-if (!isset($_SESSION['admin']['is_logged_in']) || $_SESSION['admin']['is_logged_in'] !== true) {
-    header("location: index.php");
-    exit;
-}
+if(!isset($_SESSION['admin']['adminnakalogin']) == true) header("location:index.php");
 
-// Check session timeout
-if (!checkSessionTimeout()) {
-    session_destroy();
-    header("location: index.php?timeout=1");
-    exit;
-}
-?>
-<?php require_once("../../config.php"); require_once("../../security.php"); ?>
+
+ ?>
+<?php include("../../conn.php"); ?>
 <!--  HEADER -->
 <?php include("includes/header.php"); ?>      
 
@@ -29,21 +18,10 @@ if (!checkSessionTimeout()) {
 
 <!-- Condition If  click -->
 <?php 
-   $page = $_GET['page'] ?? '';
+   @$page = $_GET['page'];
 
-   // Whitelist of allowed pages for security
-   $allowedPages = [
-       'add-course',
-       'manage-course',
-       'manage-exam',
-       'manage-examinee',
-       'ranking-exam',
-       'feedbacks',
-       'examinee-result',
-       'reports'
-   ];
 
-   if($page != '' && in_array($page, $allowedPages))
+   if($page != '')
    {
      if($page == "add-course")
      {
@@ -73,17 +51,17 @@ if (!checkSessionTimeout()) {
      {
       include("pages/examinee-result.php");
      }
-     else if($page == "reports")
-     {
-      include("pages/reports.php");
-     }
+
+       
    }
    // Else  homepage  display
    else
    {
      include("pages/home.php"); 
    }
-?> 
+
+
+ ?> 
 
 
 <!--  FOOTER -->

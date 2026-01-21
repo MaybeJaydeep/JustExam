@@ -1,29 +1,17 @@
 <?php 
 session_start();
-require_once("config.php");
-require_once("security.php");
 
-// Check if user is logged in
-if (!isset($_SESSION['student']['is_logged_in']) || $_SESSION['student']['is_logged_in'] !== true) {
-    header("location: index.php");
-    exit;
-}
+if(!isset($_SESSION['examineeSession']['examineenakalogin']) == true) header("location:index.php");
 
-// Check session timeout
-if (!checkSessionTimeout()) {
-    session_destroy();
-    header("location: index.php?timeout=1");
-    exit;
-}
-?>
-<?php require_once("config.php"); require_once("security.php"); ?>
+
+ ?>
+<?php include("conn.php"); ?>
 <!-- HEADER -->
 <?php include("includes/header.php"); ?>      
 
 <div class="app-main">
 <!-- sidebar  -->
 <?php include("includes/sidebar.php"); ?>
-
 
 
 
