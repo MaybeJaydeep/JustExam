@@ -47,19 +47,16 @@
                         {
                             while ($selExamRow = $selExam->fetch(PDO::FETCH_ASSOC)) { ?>
                                  <li>
-                                 <a href="#" id="startQuiz" data-id="<?php echo (int)$selExamRow['ex_id']; ?>"  >
-                                    <?php
-                                        $title = (string)$selExamRow['ex_title'];
-                                        $safeTitle = htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
-                                        $lenthOfTxt = strlen($title);
-
+                                 <a href="#" id="startQuiz" data-id="<?php echo $selExamRow['ex_id']; ?>"  >
+                                    <?php 
+                                        $lenthOfTxt = strlen($selExamRow['ex_title']);
                                         if($lenthOfTxt >= 23)
                                         { ?>
-                                            <?php echo htmlspecialchars(substr($title, 0, 20), ENT_QUOTES, 'UTF-8');?>.....
+                                            <?php echo substr($selExamRow['ex_title'], 0, 20);?>.....
                                         <?php }
                                         else
                                         {
-                                            echo $safeTitle;
+                                            echo $selExamRow['ex_title'];
                                         }
                                      ?>
                                  </a>
@@ -80,23 +77,15 @@
 
                  <li class="app-sidebar__heading">TAKEN EXAM'S</li>
                 <li>
-                  <?php
-                    $stmt = $conn->prepare(
-                      "SELECT et.ex_id, et.ex_title
-                       FROM exam_tbl et
-                       INNER JOIN exam_attempt ea ON et.ex_id = ea.exam_id
-                       WHERE ea.exmne_id = ?
-                       ORDER BY ea.examat_id DESC"
-                    );
-                    $stmt->execute([$exmneId]);
-                    $takenExams = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                  <?php 
+                    $selTakenExam = $conn->query("SELECT * FROM exam_tbl et INNER JOIN exam_attempt ea ON et.ex_id = ea.exam_id WHERE exmne_id='$exmneId' ORDER BY ea.examat_id  ");
 
-                    if (!empty($takenExams))
+                    if($selTakenExam->rowCount() > 0)
                     {
-                        foreach ($takenExams as $selTakenExamRow) { ?>
-                            <a href="home.php?page=result&id=<?php echo (int)$selTakenExamRow['ex_id']; ?>" >
+                        while ($selTakenExamRow = $selTakenExam->fetch(PDO::FETCH_ASSOC)) { ?>
+                            <a href="home.php?page=result&id=<?php echo $selTakenExamRow['ex_id']; ?>" >
                                
-                                <?php echo htmlspecialchars($selTakenExamRow['ex_title'], ENT_QUOTES, 'UTF-8'); ?>
+                                <?php echo $selTakenExamRow['ex_title']; ?>
                             </a>
                         <?php }
                     }
@@ -115,14 +104,6 @@
                 <li>
                     <a href="#" data-toggle="modal" data-target="#feedbacksModal" >
                         Add Feedbacks                        
-                    </a>
-                </li>
-
-                <li class="app-sidebar__heading">ACCOUNT</li>
-                <li>
-                    <a href="home.php?page=student-profile">
-                        <i class="metismenu-icon pe-7s-user"></i>
-                        My Profile                        
                     </a>
                 </li>
                 

@@ -66,7 +66,7 @@
                                     </a>
                                     <ul>
                                         <li>
-                                            <a href="#" data-toggle="modal" data-target="#modalForAddExam">
+                                            <a href="#" data-toggle="modal" data-target="#modalForExam">
                                                 <i class="metismenu-icon"></i>
                                                 Add Exam
                                             </a>
@@ -84,7 +84,7 @@
                          
                                 <li class="app-sidebar__heading">MANAGE EXAMINEE</li>
                                 <li>
-                                    <a href="#" data-toggle="modal" data-target="#modalForAddExaminee">
+                                    <a href="" data-toggle="modal" data-target="#modalForAddExaminee">
                                         <i class="metismenu-icon pe-7s-add-user">
                                         </i>Add Examinee
                                     </a>
@@ -106,25 +106,10 @@
 
                                 <li class="app-sidebar__heading">REPORTS</li>
                                 <li>
-                                    <a href="#">
-                                         <i class="metismenu-icon pe-7s-graph1"></i>
-                                         Reports
-                                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                                    <a href="home.php?page=examinee-result">
+                                        <i class="metismenu-icon pe-7s-cup">
+                                        </i>Examinee Result
                                     </a>
-                                    <ul>
-                                        <li>
-                                            <a href="home.php?page=reports">
-                                                <i class="metismenu-icon pe-7s-chart"></i>
-                                                Advanced Reports
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="home.php?page=examinee-result">
-                                                <i class="metismenu-icon pe-7s-cup"></i>
-                                                Examinee Result
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </li>
                               
 
@@ -133,32 +118,6 @@
                                     <a href="home.php?page=feedbacks">
                                         <i class="metismenu-icon pe-7s-chat">
                                         </i>All Feedbacks
-                                    </a>
-                                </li>
-
-                                <li class="app-sidebar__heading">ACCOUNT</li>
-                                <li>
-                                    <a href="home.php?page=admin-profile">
-                                        <i class="metismenu-icon pe-7s-user">
-                                        </i>My Profile
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="home.php?page=system-settings">
-                                        <i class="metismenu-icon pe-7s-settings">
-                                        </i>System Settings
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="home.php?page=email-settings">
-                                        <i class="metismenu-icon pe-7s-mail">
-                                        </i>Email Settings
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="home.php?page=bulk-import">
-                                        <i class="metismenu-icon pe-7s-cloud-upload">
-                                        </i>Bulk Import
                                     </a>
                                 </li>
                                 

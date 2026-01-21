@@ -1,22 +1,10 @@
 
 <?php 
-  require_once("../../../config.php");
-  require_once("../../../security.php");
-  
-  // Validate and sanitize ID
-  $id = $_GET['id'] ?? '';
-  if (!validateId($id)) {
-      die("Invalid question ID");
-  }
+  include("../../../conn.php");
+  $id = $_GET['id'];
  
-  // Use prepared statement to prevent SQL injection
-  $stmt = $conn->prepare("SELECT * FROM exam_question_tbl WHERE eqt_id = ?");
-  $stmt->execute([$id]);
-  $selQuestion = $stmt->fetch(PDO::FETCH_ASSOC);
-  
-  if (!$selQuestion) {
-      die("Question not found");
-  }
+  $selCourse = $conn->query("SELECT * FROM exam_question_tbl WHERE eqt_id='$id' ")->fetch(PDO::FETCH_ASSOC);
+
  ?>
 
 <fieldset style="width:543px;" >
@@ -27,30 +15,30 @@
       <div class="form-group">
         <legend>Question</legend>
         <input type="hidden" name="question_id" value="<?php echo $id; ?>">
-        <textarea name="question" class="form-control" rows="2" required=""><?php echo escape($selQuestion['exam_question']); ?></textarea>
+        <textarea name="question" class="form-control" rows="2" required=""><?php echo $selCourse['exam_question']; ?></textarea>
       </div>
 
 
       <div class="form-group">
         <legend>Choice A</legend>
-        <input type="" name="exam_ch1" value="<?php echo escape($selQuestion['exam_ch1']); ?>" class="form-control" required>
+        <input type="" name="exam_ch1" value="<?php echo $selCourse['exam_ch1']; ?>" class="form-control" required>
       </div>
       <div class="form-group">
         <legend>Choice B</legend>
-        <input type="" name="exam_ch2" value="<?php echo escape($selQuestion['exam_ch2']); ?>" class="form-control" required>
+        <input type="" name="exam_ch2" value="<?php echo $selCourse['exam_ch2']; ?>" class="form-control" required>
       </div>
       <div class="form-group">
         <legend>Choice C</legend>
-        <input type="" name="exam_ch3" value="<?php echo escape($selQuestion['exam_ch3']); ?>" class="form-control" required>
+        <input type="" name="exam_ch3" value="<?php echo $selCourse['exam_ch3']; ?>" class="form-control" required>
       </div>
       <div class="form-group">
         <legend>Choice D</legend>
-        <input type="" name="exam_ch4" value="<?php echo escape($selQuestion['exam_ch4']); ?>" class="form-control" required>
+        <input type="" name="exam_ch4" value="<?php echo $selCourse['exam_ch4']; ?>" class="form-control" required>
       </div>
 
       <div class="form-group">
         <legend class="text-success">Correct Answer</legend>
-        <input type="" name="exam_final" value="<?php echo escape($selQuestion['exam_answer']); ?>" class="form-control" required>
+        <input type="" name="exam_final" value="<?php echo $selCourse['exam_answer']; ?>" class="form-control" required>
       </div>
 
 
