@@ -13,10 +13,13 @@
         <div class="col-md-12">
           <div class="form-group">
             <label>Feedback AS</label><br>
-            <?php 
-               $selMe = $conn->query("SELECT * FROM examinee_tbl WHERE exmne_id='$exmneId' ")->fetch(PDO::FETCH_ASSOC);
-             ?>
-            <input type="radio" name="asMe" value="<?php echo $selMe['exmne_fullname']; ?>"> <?php echo $selMe['exmne_fullname']; ?> <br>
+            <?php
+              $stmt = $conn->prepare("SELECT exmne_fullname FROM examinee_tbl WHERE exmne_id = ? LIMIT 1");
+              $stmt->execute([$exmneId]);
+              $selMe = $stmt->fetch(PDO::FETCH_ASSOC);
+              $fullName = $selMe ? $selMe['exmne_fullname'] : 'Me';
+            ?>
+            <input type="radio" name="asMe" value="<?php echo htmlspecialchars($fullName, ENT_QUOTES, 'UTF-8'); ?>"> <?php echo htmlspecialchars($fullName, ENT_QUOTES, 'UTF-8'); ?> <br>
             <input type="radio" name="asMe" value="Anonymous"> Anonymous
             
           </div>

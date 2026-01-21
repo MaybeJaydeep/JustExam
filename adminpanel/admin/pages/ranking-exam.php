@@ -3,18 +3,25 @@
              
 
 
-            <?php 
-                @$exam_id = $_GET['exam_id'];
+            <?php
+                $exam_id = $_GET['exam_id'] ?? '';
 
-
-                if($exam_id != "")
+                if($exam_id !== "")
                 {
-                   $selEx = $conn->query("SELECT * FROM exam_tbl WHERE ex_id='$exam_id' ")->fetch(PDO::FETCH_ASSOC);
-                   $exam_course = $selEx['cou_id'];
+                   $exam_id = (int)$exam_id;
 
-                   
+                   $stmt = $conn->prepare("SELECT ex_id, ex_title, ex_questlimit_display, cou_id FROM exam_tbl WHERE ex_id = ? LIMIT 1");
+                   $stmt->execute([$exam_id]);
+                   $selEx = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                   $selExmne = $conn->query("SELECT * FROM examinee_tbl et  WHERE exmne_course='$exam_course'  ");
+                   if(!$selEx) {
+                      echo '<div class="alert alert-danger">Exam not found.</div>';
+                   } else {
+                      $exam_course = (int)$selEx['cou_id'];
+
+                      $stmt = $conn->prepare("SELECT exmne_id, exmne_fullname FROM examinee_tbl WHERE exmne_course = ? ORDER BY exmne_fullname ASC");
+                      $stmt->execute([$exam_course]);
+                      $selExmne = $stmt;
 
 
                    ?>
@@ -22,7 +29,7 @@
                     <div class="page-title-wrapper">
                         <div class="page-title-heading">
                             <div><b class="text-primary">RANKING BY EXAM</b><br>
-                                Exam Name : <?php echo $selEx['ex_title']; ?><br><br>
+                                Exam Name : <?php echo htmlspecialchars($selEx['ex_title'], ENT_QUOTES, 'UTF-8'); ?><br><br>
                                <span class="border" style="padding:10px;color:black;background-color: yellow;">Excellence</span>
                                <span class="border" style="padding:10px;color:white;background-color: green;">Very Good</span>
                                <span class="border" style="padding:10px;color:white;background-color: blue;">Good</span>
@@ -44,28 +51,41 @@
                             </thead>
                             <?php 
                                 while ($selExmneRow = $selExmne->fetch(PDO::FETCH_ASSOC)) { ?>
-                                    <?php 
-                                            $exmneId = $selExmneRow['exmne_id'];
-                                            $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND eqt.exam_answer = ea.exans_answer  WHERE ea.axmne_id='$exmneId' AND ea.exam_id='$exam_id' AND ea.exans_status='new' ORDER BY ea.exans_id DESC");
+                                    <?php
+                                            $exmneId = (int)$selExmneRow['exmne_id'];
 
-                                              $selAttempt = $conn->query("SELECT * FROM exam_attempt WHERE exmne_id='$exmneId' AND exam_id='$exam_id' ");
+                                            // Count correct answers
+                                            $stmtScore = $conn->prepare(
+                                              "SELECT COUNT(*)
+                                               FROM exam_question_tbl eqt
+                                               INNER JOIN exam_answers ea
+                                                 ON eqt.eqt_id = ea.quest_id
+                                                AND eqt.exam_answer = ea.exans_answer
+                                               WHERE ea.axmne_id = ?
+                                                 AND ea.exam_id = ?
+                                                 AND ea.exans_status = 'new'"
+                                            );
+                                            $stmtScore->execute([$exmneId, $exam_id]);
+                                            $score = (int)$stmtScore->fetchColumn();
 
-                                             $over = $selEx['ex_questlimit_display']  ;    
+                                            // Check attempt
+                                            $stmtAttempt = $conn->prepare("SELECT 1 FROM exam_attempt WHERE exmne_id = ? AND exam_id = ? LIMIT 1");
+                                            $stmtAttempt->execute([$exmneId, $exam_id]);
+                                            $hasAttempt = (bool)$stmtAttempt->fetchColumn();
 
-
-                                              @$score = $selScore->rowCount();
-                                                @$ans = $score / $over * 100;
+                                            $over = (int)$selEx['ex_questlimit_display'];
+                                            $ans = ($hasAttempt && $over > 0) ? (($score / $over) * 100) : 0;
 
                                          ?>
                                        <tr style="<?php 
-                                             if($selAttempt->rowCount() == 0)
+                                             if(!$hasAttempt)
                                              {
                                                 echo "background-color: #E9ECEE;color:black";
                                              }
                                              else if($ans >= 90)
                                              {
                                                 echo "background-color: yellow;";
-                                             } 
+                                             }
                                              else if($ans >= 80){
                                                 echo "background-color: green;color:white";
                                              }
@@ -82,23 +102,17 @@
                                         >
                                         <td>
 
-                                          <?php echo $selExmneRow['exmne_fullname']; ?></td>
+                                          <?php echo htmlspecialchars($selExmneRow['exmne_fullname'], ENT_QUOTES, 'UTF-8'); ?></td>
                                         
                                         <td >
                                         <?php 
-                                          if($selAttempt->rowCount() == 0)
+                                          if(!$hasAttempt)
                                           {
                                             echo "Not answer yet";
                                           }
-                                          else if($selScore->rowCount() > 0)
-                                          {
-                                            echo $totScore =  $selScore->rowCount();
-                                            echo " / ";
-                                            echo $over;
-                                          }
                                           else
                                           {
-                                            echo $totScore =  $selScore->rowCount();
+                                            echo $score;
                                             echo " / ";
                                             echo $over;
                                           }
@@ -110,7 +124,7 @@
                                         </td>
                                         <td>
                                           <?php 
-                                                if($selAttempt->rowCount() == 0)
+                                                if(!$hasAttempt)
                                                 {
                                                   echo "Not answer yet";
                                                 }
@@ -131,6 +145,7 @@
 
 
                    <?php
+                   }
                 }
                 else
                 { ?>
@@ -158,24 +173,25 @@
                             </thead>
                             <tbody>
                               <?php 
-                                $selExam = $conn->query("SELECT * FROM exam_tbl ORDER BY ex_id DESC ");
-                                if($selExam->rowCount() > 0)
+                                $stmt = $conn->query(
+                                  "SELECT et.ex_id, et.ex_title, et.ex_description, ct.cou_name
+                                   FROM exam_tbl et
+                                   LEFT JOIN course_tbl ct ON ct.cou_id = et.cou_id
+                                   ORDER BY et.ex_id DESC"
+                                );
+                                $exams = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                                if(!empty($exams))
                                 {
-                                    while ($selExamRow = $selExam->fetch(PDO::FETCH_ASSOC)) { ?>
+                                    foreach ($exams as $selExamRow) { ?>
                                         <tr>
-                                            <td class="pl-4"><?php echo $selExamRow['ex_title']; ?></td>
+                                            <td class="pl-4"><?php echo htmlspecialchars($selExamRow['ex_title'], ENT_QUOTES, 'UTF-8'); ?></td>
                                             <td>
-                                                <?php 
-                                                    $courseId =  $selExamRow['cou_id']; 
-                                                    $selCourse = $conn->query("SELECT * FROM course_tbl WHERE cou_id='$courseId' ");
-                                                    while ($selCourseRow = $selCourse->fetch(PDO::FETCH_ASSOC)) {
-                                                        echo $selCourseRow['cou_name'];
-                                                    }
-                                                ?>
+                                                <?php echo htmlspecialchars((string)($selExamRow['cou_name'] ?? ''), ENT_QUOTES, 'UTF-8'); ?>
                                             </td>
-                                            <td><?php echo $selExamRow['ex_description']; ?></td>
+                                            <td><?php echo htmlspecialchars($selExamRow['ex_description'], ENT_QUOTES, 'UTF-8'); ?></td>
                                             <td class="text-center">
-                                             <a href="?page=ranking-exam&exam_id=<?php echo $selExamRow['ex_id']; ?>"  class="btn btn-success btn-sm">View</a>
+                                             <a href="?page=ranking-exam&exam_id=<?php echo (int)$selExamRow['ex_id']; ?>"  class="btn btn-success btn-sm">View</a>
                                             </td>
                                         </tr>
 

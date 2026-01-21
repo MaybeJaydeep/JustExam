@@ -10,6 +10,7 @@
         </button>
       </div>
       <div class="modal-body">
+        <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
         <div class="col-md-12">
           <div class="form-group">
             <label>Course</label>
@@ -68,6 +69,7 @@
         </button>
       </div>
       <div class="modal-body">
+        <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
         <div class="col-md-12">
           <div class="form-group">
             <label>Select Course</label>
@@ -142,6 +144,7 @@
         </button>
       </div>
       <div class="modal-body">
+        <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
         <div class="col-md-12">
           <div class="form-group">
             <label>Fullname</label>
@@ -215,6 +218,7 @@
       </div>
       <form class="refreshFrm" method="post" id="addQuestionFrm">
       <div class="modal-body">
+        <input type="hidden" name="csrf_token" value="<?php echo generateCSRFToken(); ?>">
         <div class="col-md-12">
           <div class="form-group">
             <label>Question</label>

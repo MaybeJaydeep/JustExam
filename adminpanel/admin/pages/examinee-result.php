@@ -25,44 +25,75 @@
                             </tr>
                             </thead>
                             <tbody>
-                              <?php 
-                                $selExmne = $conn->query("SELECT * FROM examinee_tbl et INNER JOIN exam_attempt ea ON et.exmne_id = ea.exmne_id ORDER BY ea.examat_id DESC ");
-                                if($selExmne->rowCount() > 0)
+                              <?php
+                                $stmt = $conn->query(
+                                  "SELECT et.exmne_id, et.exmne_fullname, ea.exam_id
+                                   FROM examinee_tbl et
+                                   INNER JOIN exam_attempt ea ON et.exmne_id = ea.exmne_id
+                                   ORDER BY ea.examat_id DESC"
+                                );
+                                $examinees = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                                if(!empty($examinees))
                                 {
-                                    while ($selExmneRow = $selExmne->fetch(PDO::FETCH_ASSOC)) { ?>
+                                    foreach ($examinees as $selExmneRow) { ?>
                                         <tr>
-                                           <td><?php echo $selExmneRow['exmne_fullname']; ?></td>
+                                           <td><?php echo htmlspecialchars($selExmneRow['exmne_fullname'], ENT_QUOTES, 'UTF-8'); ?></td>
                                            <td>
-                                             <?php 
-                                                $eid = $selExmneRow['exmne_id'];
-                                                $selExName = $conn->query("SELECT * FROM exam_tbl et INNER JOIN exam_attempt ea ON et.ex_id=ea.exam_id WHERE  ea.exmne_id='$eid' ")->fetch(PDO::FETCH_ASSOC);
-                                                $exam_id = $selExName['ex_id'];
-                                                echo $selExName['ex_title'];
+                                             <?php
+                                                $eid = (int)$selExmneRow['exmne_id'];
+
+                                                $stmtEx = $conn->prepare(
+                                                  "SELECT et.ex_id, et.ex_title, et.ex_questlimit_display
+                                                   FROM exam_tbl et
+                                                   INNER JOIN exam_attempt ea ON et.ex_id = ea.exam_id
+                                                   WHERE ea.exmne_id = ?
+                                                   ORDER BY ea.examat_id DESC
+                                                   LIMIT 1"
+                                                );
+                                                $stmtEx->execute([$eid]);
+                                                $selExName = $stmtEx->fetch(PDO::FETCH_ASSOC);
+
+                                                if ($selExName) {
+                                                    $exam_id = (int)$selExName['ex_id'];
+                                                    echo htmlspecialchars($selExName['ex_title'], ENT_QUOTES, 'UTF-8');
+                                                } else {
+                                                    $exam_id = 0;
+                                                    echo '<em>No exam found</em>';
+                                                }
                                               ?>
                                            </td>
                                            <td>
-                                                    <?php 
-                                                    $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND eqt.exam_answer = ea.exans_answer  WHERE ea.axmne_id='$eid' AND ea.exam_id='$exam_id' AND ea.exans_status='new' ");
-                                                      ?>
+                                                    <?php
+                                                    $over = isset($selExName['ex_questlimit_display']) ? (int)$selExName['ex_questlimit_display'] : 0;
+                                                    if ($exam_id > 0) {
+                                                        $stmtScore = $conn->prepare(
+                                                          "SELECT COUNT(*)
+                                                           FROM exam_question_tbl eqt
+                                                           INNER JOIN exam_answers ea
+                                                             ON eqt.eqt_id = ea.quest_id
+                                                            AND eqt.exam_answer = ea.exans_answer
+                                                           WHERE ea.axmne_id = ?
+                                                             AND ea.exam_id = ?
+                                                             AND ea.exans_status = 'new'"
+                                                        );
+                                                        $stmtScore->execute([$eid, $exam_id]);
+                                                        $score = (int)$stmtScore->fetchColumn();
+                                                    } else {
+                                                        $score = 0;
+                                                    }
+                                                    ?>
                                                 <span>
-                                                    <?php echo $selScore->rowCount(); ?>
-                                                    <?php 
-                                                        $over  = $selExName['ex_questlimit_display'];
-                                                     ?>
+                                                    <?php echo $score; ?>
                                                 </span> / <?php echo $over; ?>
                                            </td>
                                            <td>
-                                              <?php 
-                                                    $selScore = $conn->query("SELECT * FROM exam_question_tbl eqt INNER JOIN exam_answers ea ON eqt.eqt_id = ea.quest_id AND eqt.exam_answer = ea.exans_answer  WHERE ea.axmne_id='$eid' AND ea.exam_id='$exam_id' AND ea.exans_status='new' ");
-                                                ?>
+                                              <?php ?>
                                                 <span>
                                                     <?php 
-                                                        $score = $selScore->rowCount();
-                                                        $ans = $score / $over * 100;
+                                                        $ans = ($over > 0) ? ($score / $over * 100) : 0;
                                                         echo number_format($ans,2);
-                                                        // echo "$ans";
                                                         echo "%";
-                                                        
                                                      ?>
                                                 </span> 
                                            </td>

@@ -1,7 +1,8 @@
 <!doctype html>
 <html lang="en">
 <?php 
-  include("../../conn.php");
+  require_once("../../config.php");
+  require_once("../../security.php");
   include("query/countData.php");
  ?>
 
@@ -14,10 +15,93 @@
     <title>Admin Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
      
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- MAIN CSS  -->
-    <link href="./main.css" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
     <link href="css/sweetalert.css" rel="stylesheet">
     <link href="css/facebox.css" rel="stylesheet">
+    <link href="css/mycss.css" rel="stylesheet">
+    <link href="../../css/mobile-responsive.css" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- Dashboard Styles -->
+    <style>
+        .avatar-icon-wrapper {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #3f6ad8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .toast {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 6px;
+        }
+        
+        .toast-content {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .widget-content:hover {
+            transform: translateY(-2px);
+            transition: transform 0.2s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .metric-value h2 {
+            margin: 0;
+            font-weight: bold;
+        }
+        
+        .metric-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .progress {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-bar {
+            transition: width 0.6s ease;
+        }
+        
+        .card {
+            border: none;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .table th {
+            border-top: none;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        .badge {
+            font-size: 0.8rem;
+            padding: 0.4em 0.8em;
+        }
+        
+        .btn-actions-pane-right .badge {
+            font-size: 0.75rem;
+        }
+    </style>
 </head>
 <body id="body">
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">

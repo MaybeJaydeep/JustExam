@@ -1,0 +1,662 @@
+/* Mobile-First Responsive Design for JustExam */
+
+/* Base Mobile Styles (320px and up) */
+@media (max-width: 767px) {
+    /* Header Adjustments */
+    .app-header {
+        padding: 10px 15px;
+    }
+    
+    .app-header__logo {
+        font-size: 18px;
+    }
+    
+    .page-title-heading {
+        font-size: 1.2rem;
+    }
+    
+    .page-title-subheading {
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+    
+    /* Sidebar Mobile */
+    .app-sidebar {
+        position: fixed;
+        left: -280px;
+        top: 0;
+        width: 280px;
+        height: 100vh;
+        z-index: 1050;
+        transition: left 0.3s ease;
+        background: white;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+    
+    .app-sidebar.mobile-open {
+        left: 0;
+    }
+    
+    .mobile-sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 1040;
+        display: none;
+    }
+    
+    .mobile-sidebar-overlay.active {
+        display: block;
+    }
+    
+    /* Main Content */
+    .app-main {
+        margin-left: 0;
+        padding: 15px;
+    }
+    
+    .app-main__outer {
+        padding: 15px;
+    }
+    
+    .app-main__inner {
+        padding: 0;
+    }
+    
+    /* Cards and Components */
+    .main-card {
+        margin-bottom: 20px;
+        border-radius: 8px;
+    }
+    
+    .card-body {
+        padding: 15px;
+    }
+    
+    .card-header {
+        padding: 12px 15px;
+        font-size: 14px;
+    }
+    
+    /* Tables */
+    .table-responsive {
+        border: none;
+        margin-bottom: 0;
+    }
+    
+    .table {
+        font-size: 14px;
+    }
+    
+    .table td, .table th {
+        padding: 8px;
+        vertical-align: middle;
+    }
+    
+    /* Forms */
+    .form-group {
+        margin-bottom: 15px;
+    }
+    
+    .form-control {
+        font-size: 16px; /* Prevents zoom on iOS */
+        padding: 12px 15px;
+        border-radius: 6px;
+    }
+    
+    .form-control-file {
+        font-size: 14px;
+    }
+    
+    label {
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    
+    /* Buttons */
+    .btn {
+        padding: 10px 15px;
+        font-size: 14px;
+        border-radius: 6px;
+        touch-action: manipulation;
+    }
+    
+    .btn-sm {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+    
+    .btn-lg {
+        padding: 12px 20px;
+        font-size: 16px;
+    }
+    
+    /* Navigation */
+    .vertical-nav-menu {
+        padding: 0;
+    }
+    
+    .vertical-nav-menu li {
+        border-bottom: 1px solid #f0f0f0;
+    }
+    
+    .vertical-nav-menu a {
+        padding: 12px 15px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .metismenu-icon {
+        margin-right: 10px;
+        font-size: 16px;
+    }
+    
+    /* Dashboard Widgets */
+    .widget-content {
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+    
+    .widget-numbers {
+        font-size: 1.8rem;
+    }
+    
+    .widget-heading {
+        font-size: 14px;
+    }
+    
+    .widget-subheading {
+        font-size: 12px;
+    }
+    
+    /* Statistics Cards */
+    .row {
+        margin: 0 -10px;
+    }
+    
+    .col-md-6, .col-md-4, .col-md-3 {
+        padding: 0 10px;
+        margin-bottom: 15px;
+    }
+    
+    /* Modals */
+    .modal-dialog {
+        margin: 20px;
+        max-width: calc(100% - 40px);
+    }
+    
+    .modal-content {
+        border-radius: 8px;
+    }
+    
+    .modal-header {
+        padding: 15px;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .modal-body {
+        padding: 15px;
+    }
+    
+    .modal-footer {
+        padding: 15px;
+        border-top: 1px solid #dee2e6;
+    }
+    
+    /* Alerts */
+    .alert {
+        padding: 12px 15px;
+        margin-bottom: 15px;
+        border-radius: 6px;
+        font-size: 14px;
+    }
+    
+    /* Badges */
+    .badge {
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+    
+    .badge-lg {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+    
+    /* Progress Bars */
+    .progress {
+        height: 8px;
+        border-radius: 4px;
+    }
+    
+    /* Pagination */
+    .pagination {
+        justify-content: center;
+        margin-top: 20px;
+    }
+    
+    .page-link {
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+    
+    /* Login Page Mobile */
+    .login-container {
+        padding: 20px;
+    }
+    
+    .login-card {
+        padding: 30px 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    
+    /* Student Dashboard Mobile */
+    .app-page-title {
+        margin-bottom: 20px;
+    }
+    
+    .page-title-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .page-title-actions {
+        margin-top: 10px;
+        width: 100%;
+    }
+    
+    /* Results Page Mobile */
+    .result-card {
+        padding: 20px 15px;
+    }
+    
+    .result-score {
+        font-size: 2rem;
+        text-align: center;
+        margin: 20px 0;
+    }
+    
+    /* Profile Page Mobile */
+    .profile-avatar {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 15px;
+    }
+    
+    .profile-info {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    /* Course Page Mobile */
+    .course-card {
+        margin-bottom: 15px;
+    }
+    
+    .course-progress {
+        margin-top: 15px;
+    }
+    
+    /* Exam List Mobile */
+    .exam-item {
+        padding: 15px;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        background: white;
+    }
+    
+    .exam-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    
+    .exam-meta {
+        font-size: 12px;
+        color: #6c757d;
+        margin-bottom: 10px;
+    }
+    
+    .exam-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    
+    /* Admin Panel Mobile */
+    .admin-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .admin-stat-card {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    /* Import/Export Mobile */
+    .import-section {
+        margin-bottom: 30px;
+    }
+    
+    .file-upload-area {
+        border: 2px dashed #dee2e6;
+        border-radius: 8px;
+        padding: 30px 20px;
+        text-align: center;
+        margin-bottom: 15px;
+    }
+    
+    /* Settings Page Mobile */
+    .settings-section {
+        margin-bottom: 30px;
+    }
+    
+    .settings-group {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+    
+    /* Mobile Menu Toggle */
+    .mobile-menu-toggle {
+        display: block;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        z-index: 1060;
+        background: #667eea;
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 6px;
+        font-size: 18px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    
+    /* Hide desktop elements */
+    .d-mobile-none {
+        display: none !important;
+    }
+    
+    /* Show mobile elements */
+    .d-mobile-block {
+        display: block !important;
+    }
+    
+    .d-mobile-flex {
+        display: flex !important;
+    }
+}
+
+/* Tablet Styles (768px to 991px) */
+@media (min-width: 768px) and (max-width: 991px) {
+    .app-sidebar {
+        width: 250px;
+    }
+    
+    .app-main {
+        margin-left: 250px;
+    }
+    
+    .col-md-6 {
+        width: 50%;
+        float: left;
+        padding: 0 15px;
+    }
+    
+    .col-md-4 {
+        width: 33.333%;
+        float: left;
+        padding: 0 15px;
+    }
+    
+    .col-md-3 {
+        width: 25%;
+        float: left;
+        padding: 0 15px;
+    }
+    
+    /* Tablet specific adjustments */
+    .widget-numbers {
+        font-size: 2rem;
+    }
+    
+    .card-body {
+        padding: 20px;
+    }
+    
+    .table {
+        font-size: 15px;
+    }
+    
+    .btn {
+        padding: 10px 20px;
+        font-size: 15px;
+    }
+}
+
+/* Small Desktop (992px to 1199px) */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .app-sidebar {
+        width: 260px;
+    }
+    
+    .app-main {
+        margin-left: 260px;
+    }
+    
+    /* Adjust grid for smaller desktop */
+    .admin-stats {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    /* Increase touch targets */
+    .btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .form-control {
+        min-height: 44px;
+    }
+    
+    .nav-link {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Remove hover effects on touch devices */
+    .btn:hover,
+    .card:hover,
+    .nav-link:hover {
+        transform: none;
+        box-shadow: none;
+    }
+    
+    /* Add touch feedback */
+    .btn:active {
+        transform: scale(0.98);
+    }
+    
+    .card:active {
+        transform: scale(0.99);
+    }
+}
+
+/* High DPI Displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* Optimize for retina displays */
+    .logo img {
+        image-rendering: -webkit-optimize-contrast;
+    }
+    
+    .icon {
+        image-rendering: -webkit-optimize-contrast;
+    }
+}
+
+/* Landscape Phone Orientation */
+@media (max-width: 767px) and (orientation: landscape) {
+    .exam-sidebar {
+        width: 250px;
+    }
+    
+    .timer-display {
+        font-size: 1.2rem;
+    }
+    
+    .question-card {
+        padding: 15px;
+    }
+}
+
+/* Very Small Screens (320px and below) */
+@media (max-width: 320px) {
+    .app-main__outer {
+        padding: 10px;
+    }
+    
+    .card-body {
+        padding: 10px;
+    }
+    
+    .btn {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    
+    .form-control {
+        padding: 10px 12px;
+        font-size: 15px;
+    }
+    
+    .widget-numbers {
+        font-size: 1.5rem;
+    }
+    
+    .table {
+        font-size: 13px;
+    }
+    
+    .table td, .table th {
+        padding: 6px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .app-sidebar,
+    .mobile-menu-toggle,
+    .btn,
+    .page-title-actions {
+        display: none !important;
+    }
+    
+    .app-main {
+        margin-left: 0 !important;
+    }
+    
+    .main-card {
+        box-shadow: none !important;
+        border: 1px solid #dee2e6 !important;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+    
+    .page-break {
+        page-break-before: always;
+    }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Dark Mode Support (if implemented) */
+@media (prefers-color-scheme: dark) {
+    /* Dark mode styles would go here */
+    /* Currently not implemented but framework ready */
+}
+
+/* Focus Styles for Keyboard Navigation */
+.btn:focus,
+.form-control:focus,
+.nav-link:focus {
+    outline: 2px solid #667eea;
+    outline-offset: 2px;
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+    position: relative;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Utility Classes */
+.text-truncate-mobile {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mb-mobile {
+    margin-bottom: 15px;
+}
+
+.p-mobile {
+    padding: 15px;
+}
+
+.rounded-mobile {
+    border-radius: 8px;
+}
+
+.shadow-mobile {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
